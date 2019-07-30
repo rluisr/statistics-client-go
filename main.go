@@ -94,7 +94,7 @@ func (s *Statistics) request() error {
 	return err
 }
 
-func (s *Statistics) register() error {
+func (s *Statistics) Register() error {
 	if !s.checkUUID() {
 		err := s.generateUUID()
 		if err != nil {
