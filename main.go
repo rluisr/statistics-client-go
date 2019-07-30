@@ -82,7 +82,7 @@ func (s *Statistics) request() error {
 		return err
 	}
 
-	req, err := http.NewRequest("POST", "http://localhost:8000/uuid", bytes.NewBuffer(body))
+	req, err := http.NewRequest("POST", s.URL+"/uuid", bytes.NewBuffer(body))
 	if err != nil {
 		return err
 	}
