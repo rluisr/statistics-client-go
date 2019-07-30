@@ -1,4 +1,4 @@
-module statistics-client-go
+module github.com/rluisr/statistics-client-go
 
 go 1.12
 
