@@ -3,6 +3,7 @@ package statistics_client_go
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -89,7 +90,14 @@ func (s *Statistics) request() error {
 	req.Header.Set("content-type", "application/json")
 
 	client := &http.Client{}
-	_, err = client.Do(req)
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	if resp.StatusCode != 200 {
+		return fmt.Errorf("failed to request: %s, status code: %d", s.URL, resp.StatusCode)
+	}
 
 	return err
 }
@@ -101,12 +109,12 @@ func (s *Statistics) Register() error {
 			return err
 		}
 
-		err = s.saveUUID()
+		err = s.request()
 		if err != nil {
 			return err
 		}
 
-		err = s.request()
+		err = s.saveUUID()
 		if err != nil {
 			return err
 		}
